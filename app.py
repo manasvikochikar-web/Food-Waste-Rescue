@@ -76,7 +76,14 @@ def main_page():
 def donate():
     return render_template('donate.html')
 
+
+@app.route('/thanks')
+def thanks():
+    return render_template('thanks.html')  
+
+
+
 # 3. Server Execution (Must be at the very bottom)
 if __name__ == '__main__':
     # 'debug=True' is essential for seeing server-side errors in your terminal
-    app.run(debug=True, port=5000)
+    app.run(debug=True, use_reloader=False, port=5000)
