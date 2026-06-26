@@ -1,30 +1,5 @@
 from flask import Flask, request, redirect, render_template, url_for
 import sqlite3
-
-app = Flask(__name__)
-
-# Function to initialize the database
-def init_db():
-    # Connect to (or create) the database file
-    conn = sqlite3.connect('users.db')
-    # Create the table if it doesn't exist
-    conn.execute('''
-        CREATE TABLE IF NOT EXISTS users 
-        (username TEXT, email TEXT, phone TEXT, password TEXT)
-    ''')
-    conn.commit()
-    conn.close()
-
-# Run the initialization
-init_db()
-
-# Route to serve the login page
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-from flask import Flask, request, redirect, render_template, url_for
-import sqlite3
 import os
 
 app = Flask(__name__)
@@ -71,7 +46,6 @@ def main_page():
     return render_template('main.html')
 
 
-
 @app.route('/donate.html')
 def donate():
     return render_template('donate.html')
@@ -82,8 +56,11 @@ def thanks():
     return render_template('thanks.html')  
 
 
-
-# 3. Server Execution (Must be at the very bottom)
+# 3. Server Execution (Configured for Railway)
 if __name__ == '__main__':
-    # 'debug=True' is essential for seeing server-side errors in your terminal
-    app.run(debug=True, use_reloader=False, port=5000)
+    # Railway provides a dynamic port via environment variables.
+    # We default to 5000 if running locally.
+    port = int(os.environ.get("PORT", 5000))
+    
+    # Crucial: host must be '0.0.0.0' for Railway to route traffic to your app
+    app.run(host="0.0.0.0", port=port, debug=True, use_reloader=False)
