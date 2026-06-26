@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
     <title>FoodWasteRescue.com</title>
 </head>
 <body>
-
-<h1>Welcome to FoodWasteRescue.com</h1>
-<p>Our mission is to reduce food waste and help those in need. Join us in our efforts to rescue surplus food and distribute it to communities that need it most.</p>
-<br>
-<h2>How You Can Help</h2>
-<ul>
-    <li>Donate surplus food from your business or home.</li>
-    <li>Volunteer your time to help with food collection and distribution.</li>
-    <li>Partner with us as a local restaurant, grocery store, or caterer to set up recurring food rescues.</li>
-    <li>Host a community food drive or fundraiser to help support our logistics and storage facilities.</li>
-    <li>Advocate for policy changes and community initiatives that support food security and reduce landfill waste.</li>
-    <li>Make a financial contribution to help us expand our reach and keep our delivery vehicles running.</li>
-    <li>Practice smart shopping and meal planning at home to reduce waste at the source.</li>
-    <li>Spread awareness about food waste and its impact on the environment.</li>
-</ul>
-<br>
-
-  <h2>Get Involved</h2>
-  <p>Sign up for our newsletter to stay updated on our latest initiatives and events. Follow us on social media to see how you can make a difference in your community.</p>
-  
-</div><br>
-<a href="donate.html" target="_blank">Donate Now</a>
+    <main class="main-container">
+        <h1>Welcome to FoodWasteRescue.com</h1>
+        <p>Our mission is to reduce food waste and help those in need. Join us in our efforts to rescue surplus food and distribute it to communities that need it most.</p>
+        <br>
+        <h2>How You Can Help</h2>
+        <ul>
+            <li>Donate surplus food from your business or home.</li>
+            <li>Volunteer your time to help with food collection and distribution.</li>
+            <li>Partner with us as a local restaurant, grocery store, or caterer to set up recurring food rescues.</li>
+            <li>Host a community food drive or fundraiser to help support our logistics and storage facilities.</li>
+            <li>Advocate for policy changes and community initiatives that support food security and reduce landfill waste.</li>
+            <li>Make a financial contribution to help us expand our reach and keep our delivery vehicles running.</li>
+            <li>Practice smart shopping and meal planning at home to reduce waste at the source.</li>
+            <li>Spread awareness about food waste and its impact on the environment.</li>
+        </ul>
+        <br>
+        <h2>Get Involved</h2>
+        <p>Sign up for our newsletter to stay updated on our latest initiatives and events. Follow us on social media to see how you can make a difference in your community.</p>
+        <br>
+        <a href="{{ url_for('donate') }}">Donate Now</a>
+    </main>
 </body>
 </html>
