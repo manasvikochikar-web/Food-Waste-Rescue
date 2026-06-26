@@ -1,103 +1,154 @@
-/* Reset and global body styling */
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f7f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    
-
-
-/* Container styling */
-.login-container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 300px;
+:root {
+    --green: #2e7d32;
+    --green-dark: #1b5e20;
+    --bg: #f4f7f6;
+    --card: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Typography */
-h2 { 
-    text-align: center; 
-    color: #333; 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--green);
+}
+
+.page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+}
+
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 32px;
+}
+
+.center-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.brand h1 {
+    margin: 0 0 8px;
+    color: var(--green);
+    font-size: 1.75rem;
+}
+
+.brand p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.field input:focus {
+    outline: 2px solid rgba(46, 125, 50, 0.25);
+    border-color: var(--green);
+}
+
+.btn {
+    display: inline-block;
+    border: none;
+    background: var(--green);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--green-dark);
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.hero h1 {
+    color: var(--green);
     margin-top: 0;
 }
 
-.input-group { 
-    margin-bottom: 1rem; 
+.hero p {
+    color: var(--muted);
 }
 
-label { 
-    display: block; 
-    margin-bottom: 0.5rem; 
+.section-title {
+    color: var(--green-dark);
+    margin-top: 32px;
 }
 
-/* Input fields */
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Crucial for width: 100% + padding */
+ul {
+    padding-left: 20px;
 }
 
-/* Button styling */
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.2s;
+.actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-button:hover {
-    background-color: #218838;
+.thanks-icon {
+    width: 64px;
+    height: 64px;
+    color: var(--green);
+    margin-bottom: 16px;
 }
 
-.form-box {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 30px;
-    max-width: 450px;
-    margin: 40px auto;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+.text-center {
+    text-align: center;
 }
 
-.form-box label {
-    display: block;
-    margin: 15px 0 5px;
-    font-weight: bold;
-}
-
-.form-box input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensures padding doesn't increase width */
-}
-
-.form-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    margin-top: 20px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.form-box button:hover {
-    background-color: #1b5e20;
+.muted {
+    color: var(--muted);
 }

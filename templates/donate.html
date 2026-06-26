@@ -3,29 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donate</title>
+    <title>Donate — Food Waste Rescue</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <script src="{{ url_for('static', filename='donate.js') }}"></script>
 </head>
 <body>
-    <div class="form-box">
-        <h2>Support Our Mission</h2>
-        <p>Your contribution helps us keep these projects free and open-source.</p>
-        <form>
-            <label>Full Name:</label>
-            <input type="text" placeholder="John Doe">
-        
-        <label>Phone Number:</label>
-        <input type="tel" placeholder="123-456-7890">
-        
-        <label>Amount (INR):</label>
-        <input type="number" placeholder="500">
-        
-        <label>Email Address:</label>
-        <input type="email" placeholder="john.doe@example.com">
-     </form>    
-        <form action="{{ url_for('thanks') }}" method="GET" style="display: inline;">
-    <button type="submit">Go to Thanks Page</button>
-     </form>
-    
-</div>
+    <main class="page">
+        <section class="card">
+            <h1>Support Our Mission</h1>
+            <p class="muted">Your contribution helps us rescue food and support our community.</p>
+
+            <form action="{{ url_for('thanks') }}" method="GET">
+                <div class="field">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Jane Doe">
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="jane@example.com">
+                </div>
+                <div class="field">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+                </div>
+                <div class="field">
+                    <label for="amount">Amount (INR)</label>
+                    <input type="number" id="amount" name="amount" min="1" placeholder="500">
+                </div>
+                <button type="submit" class="btn">Complete Donation</button>
+            </form>
+
+            <div class="actions">
+                <a href="{{ url_for('main_page') }}">Back to Home</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

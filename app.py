@@ -7,13 +7,14 @@ app = Flask(__name__)
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 DATABASE_PATH = os.environ.get("DATABASE_PATH", "users.db")
+_db_initialized = False
 
 
 def use_postgres():
     return bool(DATABASE_URL)
 
 
-def get_db_connection():
+def get_db():
     if use_postgres():
         import psycopg2
 
@@ -24,32 +25,56 @@ def get_db_connection():
 
 
 def init_db():
-    conn = get_db_connection()
-    if use_postgres():
-        with conn.cursor() as cur:
-            cur.execute(
+    conn = get_db()
+    try:
+        if use_postgres():
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    CREATE TABLE IF NOT EXISTS users (
+                        id SERIAL PRIMARY KEY,
+                        username TEXT NOT NULL,
+                        email TEXT NOT NULL,
+                        phone TEXT NOT NULL,
+                        password TEXT NOT NULL,
+                        created_at TIMESTAMPTZ DEFAULT NOW()
+                    )
+                    """
+                )
+        else:
+            conn.execute(
                 """
                 CREATE TABLE IF NOT EXISTS users (
-                    id SERIAL PRIMARY KEY,
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                     username TEXT NOT NULL,
                     email TEXT NOT NULL,
                     phone TEXT NOT NULL,
-                    password TEXT NOT NULL
+                    password TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
                 """
             )
-    else:
-        conn.execute(
-            """
-            CREATE TABLE IF NOT EXISTS users
-            (username TEXT, email TEXT, phone TEXT, password TEXT)
-            """
-        )
-    conn.commit()
-    conn.close()
+        conn.commit()
+    finally:
+        conn.close()
 
 
-init_db()
+def ensure_db():
+    global _db_initialized
+    if _db_initialized:
+        return True
+    try:
+        init_db()
+        _db_initialized = True
+        return True
+    except Exception:
+        app.logger.exception("Database initialization failed")
+        return False
+
+
+@app.route("/health")
+def health():
+    return "ok", 200
 
 
 @app.route("/")
@@ -59,12 +84,18 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    username = request.form.get("username")
-    email = request.form.get("email")
-    phone = request.form.get("phone")
-    password = request.form.get("password")
+    username = request.form.get("username", "").strip()
+    email = request.form.get("email", "").strip()
+    phone = request.form.get("phone", "").strip()
+    password = request.form.get("password", "")
 
-    conn = get_db_connection()
+    if not all([username, email, phone, password]):
+        return redirect(url_for("index"))
+
+    if not ensure_db():
+        return redirect(url_for("index"))
+
+    conn = get_db()
     if use_postgres():
         with conn.cursor() as cur:
             cur.execute(
@@ -76,7 +107,10 @@ def login():
             )
     else:
         conn.execute(
-            "INSERT INTO users VALUES (?, ?, ?, ?)",
+            """
+            INSERT INTO users (username, email, phone, password)
+            VALUES (?, ?, ?, ?)
+            """,
             (username, email, phone, password),
         )
     conn.commit()
@@ -90,7 +124,7 @@ def main_page():
     return render_template("main.html")
 
 
-@app.route("/donate.html")
+@app.route("/donate")
 def donate():
     return render_template("donate.html")
 
